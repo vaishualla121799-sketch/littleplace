@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function owner(giftId) {
+      return signedIn() &&
+        get(/databases/$(database)/documents/gifts/$(giftId)).data.ownerUid == request.auth.uid;
+    }
+
+    match /gifts/{giftId} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if signedIn()
+        && resource.data.ownerUid == request.auth.uid;
+
+      match /garden/{entryId} {
+        // Visitors may add a small garden interaction, but cannot edit the gift itself.
+        allow read: if true;
+        allow create: if signedIn()
+          && request.resource.data.keys().hasOnly(['flower', 'wish', 'createdAt'])
+          && request.resource.data.flower is string
+          && request.resource.data.flower.size() <= 8
+          && request.resource.data.wish is string
+          && request.resource.data.wish.size() <= 120;
+        allow update, delete: if owner(giftId);
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /gifts/{giftId}/memories/{fileName} {
+      function isOwner() {
+        return request.auth != null
+          && firestore.get(/databases/(default)/documents/gifts/$(giftId)).data.ownerUid == request.auth.uid;
+      }
+      // Shared photos are viewable by anyone with the gift link.
+      allow read: if true;
+      // Only the gift owner can upload, replace, or delete photos. Limit uploads to 8 MB images.
+      allow write: if isOwner()
+        && request.resource != null
+        && request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isOwner();
+    }
+  }
+}
