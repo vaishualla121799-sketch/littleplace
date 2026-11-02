@@ -1,7 +1,6 @@
 // Replace these placeholder values with your Firebase project's Web App config.
 // Firebase Console → Project settings → Your apps → Web app → SDK setup → Config.
 export default {
-const firebaseConfig = {
   apiKey: "AIzaSyDX9Nk32TNYMehJI8DwznwFUnTqeoVyFH4",
   authDomain: "littleplace-e541d.firebaseapp.com",
   projectId: "littleplace-e541d",
