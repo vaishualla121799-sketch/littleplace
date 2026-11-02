@@ -1,10 +1,13 @@
 // Replace these placeholder values with your Firebase project's Web App config.
 // Firebase Console → Project settings → Your apps → Web app → SDK setup → Config.
 export default {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+const firebaseConfig = {
+  apiKey: "AIzaSyDX9Nk32TNYMehJI8DwznwFUnTqeoVyFH4",
+  authDomain: "littleplace-e541d.firebaseapp.com",
+  projectId: "littleplace-e541d",
+  storageBucket: "littleplace-e541d.firebasestorage.app",
+  messagingSenderId: "663275269210",
+  appId: "1:663275269210:web:39057e4c0f734eca687c63",
+  measurementId: "G-1EMJQP6WL3"
 };
+
